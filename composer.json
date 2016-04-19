@@ -11,7 +11,8 @@
     "require": {
         "dsv/bundle-installer": "^1.0",
         "dsv/cerberus": "^3.0",
-        "dsv/attire": "^2.3"
+        "dsv/attire": "^2.3",
+        "dsv/codeigniter-bundle": "^2.2"
     },
     "extra": {
         "installer-name": "EntrustBundle"
