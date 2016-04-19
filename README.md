@@ -22,6 +22,14 @@ In your application config file, enable the Hooks:
 
 	$config['enable_hooks'] = TRUE;
 
+Assets
+------
+
+Install aditional asset components using bower:
+
+    cd path/to/bundles/EntrustBundle/assets
+    bower install
+
 DB Setup
 --------
 
