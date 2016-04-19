@@ -1,4 +1,4 @@
-# Codeigniter-Bundle-Entrust (Beta)
+# Codeigniter Bundle - Entrust (Beta)
 
 Entrust is a succinct and flexible way to add Role-based Permissions and Session Authorization to Codeigniter 3.
 
@@ -17,6 +17,10 @@ Then enable it inside your bundle configuration:
     		'default'  => TRUE
     	)
     );
+    
+In your application config file, enable the Hooks:
+
+	$config['enable_hooks'] = TRUE;
 
 DB Setup
 --------
@@ -27,7 +31,10 @@ Optionally, if you're using [CLI Craftsman](https://github.com/davidsosavaldes/C
 
     php vendor/bin/craftsman migration:latest --path="path/to/application/bundles/EntrustBundle/migrations"
 
-Relational DB Setup
--------------------
+Requirements
+------------
 
-This package requires the [Cerberus Driver](https://github.com/davidsosavaldes/Cerberus), so follow the installation instructions to complete the bundle installation.
+* PHP 5.4 or later
+* [Codeigniter Bundle](https://github.com/davidsosavaldes/Codeigniter-Bundle)
+* [Attire Library](https://github.com/davidsosavaldes/Attire)
+* [Cerberus Driver](https://github.com/davidsosavaldes/Cerberus)
