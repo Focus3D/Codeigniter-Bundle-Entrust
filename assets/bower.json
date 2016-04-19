@@ -1,0 +1,14 @@
+{
+  "name": "bundle-entrust",
+  "homepage": "https://github.com/davidsosavaldes/Codeigniter-Bundle-Entrust",
+  "authors": [
+    "David Sosa Valdes <david.sosa.valdes@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "angular-material": "^1.0.7"
+  }
+}
