@@ -1,0 +1,15 @@
+{% extends "master.twig" %}
+{% block content %}
+	<md-content
+	ng-app="backendApp"
+	class="md-padding"
+	layout="row"
+	layout-align="center center"
+	style="height:100%;">
+	{% for view,params in views %}
+		<div flex-xs flex-gt-xs="35">
+			{% include view with params %}
+		</div>
+	{% endfor %}
+	</md-content>
+{% endblock %}

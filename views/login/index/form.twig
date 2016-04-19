@@ -1,0 +1,42 @@
+{{ ci_form_open('entrust/login')|raw }}
+<md-card>
+<md-card-title>
+<md-card-title-text style="text-align:center;">
+<span class="md-headline">{{ lang.title_line }}</span>
+<span class="md-subhead">{{ lang.subtitle_line }}</span>
+</md-card-title-text>
+</md-card-title>
+<md-card-content style="padding-bottom:0px;">
+{% for item in messages.errors if item is not empty %}
+	<div style="margin-top:5px">
+		<span style="
+			color: #a94442;
+			background-color: #f2dede;
+			border-color: #ebccd1;
+			padding: 10px;
+			border: 1px solid transparent;
+			border-radius: 4px;
+			box-sizing: border-box;
+			display:block;
+			font-size:small;
+		">{{item}}</span>
+	</div>
+{% endfor %}
+<div layout-gt-sm="column" style="margin-top:15px;">
+	<md-input-container class="md-block">
+	<label>{{ lang.placeholder_username_line }}</label>
+	<input type="text" name="username" id="username" value="{{ ci_set_value('username') }}" autofocus>
+	<div class="hint">{{ ci_form_error('username')|raw }}</div>
+	</md-input-container>
+	<md-input-container class="md-block">
+	<label>{{ lang.placeholder_password_line }}</label>
+	<input type="password" name="password">
+	<div class="hint">{{ ci_form_error('password')|raw }}</div>
+	</md-input-container>
+</div>
+</md-card-content>
+<md-card-actions layout="row" layout-align="end center">
+<md-button type="submit">{{ lang.submit_line }}</md-button>
+</md-card-actions>
+</md-card>
+{{ci_form_close()|raw}}

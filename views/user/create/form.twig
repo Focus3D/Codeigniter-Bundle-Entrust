@@ -1,0 +1,53 @@
+<md-content layout-padding>
+<div>
+	{{ci_form_open('entrust/user/store', {'name':'userForm'})|raw}}
+	<div layout-gt-xs="column">
+		<md-input-container class="md-block">
+		<label>Email</label>
+		<input name="email" type="email" {% block email_attrs %}{% endblock %}>
+		{% block email_message %}{% endblock %}
+		</md-input-container>
+	</div>
+	<div layout-gt-xs="row">
+		<md-input-container class="md-block" flex-gt-sm="50">
+		<label>Firstname</label>
+		<input name="firstname" type="text" id="firstname" {% block firstname_attrs %}{% endblock %}>
+		{% block firstname_message %}{% endblock %}
+		</md-input-container>
+		<md-input-container class="md-block" flex-gt-sm="50">
+		<label>Lastname</label>
+		<input name="lastname" type="text" id="lastname" {% block lastname_attrs %}{% endblock %}>
+		{% block lastname_message %}{% endblock %}
+		</md-input-container>
+	</div>
+	<div layout-gt-xs="row">
+		<md-input-container class="md-block" flex-gt-sm="50">
+		<label>Password</label>
+		<input name="password" type="password" id="password">
+		{% block password_message %}{% endblock %}
+		</md-input-container>
+		<md-input-container class="md-block" flex-gt-sm="50">
+		<label>Confirm Password</label>
+		<input name="c_password" type="password" id="c_password">
+		{% block c_password_message %}{% endblock %}
+		</md-input-container>
+	</div>
+	<div layout-gt-xs="row" ng-controller="SelectAsyncController" ng-cloak>
+		<md-input-container class="md-block" flex-gt-sm>
+		<md-select name="roles" placeholder="Roles" ng-model="selectedRole" md-on-open="loadRoles()" ng-model-options="{trackBy: '$value.id'}" md-block multiple>
+		<md-option ng-repeat="role in roles" value="{[{role.id}]}">{[{role.name}]}</md-option>
+		</md-select>
+		{% block roles_message %}{% endblock %}
+		</md-input-container>
+		<input type="hidden" name="h_roles" value="{[{selectedRole}]}">
+	</div>
+	<div layout-gt-xs="column">
+		<div>
+			<button type="submit" class="mdl-button mdl-js-button mdl-button--raised">
+			Submit
+			</button>
+		</div>
+	</div>
+	{{ci_form_close()|raw}}
+</div>
+</md-content>

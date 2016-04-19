@@ -1,0 +1,31 @@
+{% extends "@VIEWPATH/user/create/form.twig" %}
+
+{% block email_attrs %}
+value="{{ ci_set_value('email') }}"
+{% endblock %}
+{% block firstname_attrs %}
+value="{{ ci_set_value('firstname') }}"
+{% endblock %}
+{% block lastname_attrs %}
+value="{{ ci_set_value('lastname') }}"
+{% endblock %}
+
+{% block email_message %}
+	<div class="hint">{{ ci_form_error('email')|raw }}</div>
+{% endblock %}
+{% block firstname_message %}
+	<div class="hint">{{ ci_form_error('firstname')|raw }}</div>
+{% endblock %}
+{% block lastname_message %}
+	<div class="hint">{{ ci_form_error('lastname')|raw }}</div>
+{% endblock %}
+{% block password_message %}
+	<div class="hint">{{ ci_form_error('password')|raw }}</div>
+{% endblock %}
+{% block c_password_message %}
+	<div class="hint">{{ ci_form_error('c_password')|raw }}</div>
+{% endblock %}
+
+{% block roles_message %}
+	<div class="hint">{{ ci_form_error('h_roles')|raw }}</div>
+{% endblock %}

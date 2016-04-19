@@ -1,0 +1,51 @@
+{% extends "master.twig" %}
+{% block content %}
+	<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header" ng-app="backendApp" ng-cloak>
+		<header class="mdl-layout__header">
+			<div class="mdl-layout__header-row">
+				<!-- Title -->
+				<span class="mdl-layout-title">{{page.title|title}} <small style="font-weight: 300; font-style: initial; font-size: small;">{{page.subtitle|title}}</small></span>
+				<!-- Add spacer, to align navigation to the right -->
+				<div class="mdl-layout-spacer"></div>
+				<!-- Navigation. We hide it in small screens. -->
+				<nav class="mdl-navigation mdl-layout--large-screen-only">
+					<md-menu style="padding-right:0px;" class="mdl-navigation__link" md-position-mode="target-right target" md-offset="0 40">
+					<md-button aria-label="Open demo menu" ng-click="$mdOpenMenu($event)">
+					{{system.user.firstname}} {{system.user.lastname}}
+					<md-icon style="color:white;" md-menu-origin class="material-icons">expand_more</md-icon>
+					</md-button>
+					<md-menu-content width="3" style="padding-top:0px;padding-bottom:0px;">
+					<md-menu-item>
+					<md-button ng-href="{{ci_site_url('entrust/logout')}}" style="max-height:35px;">
+					<div><md-icon class="material-icons">exit_to_app</md-icon> Log out</div>
+					</md-button>
+					</md-menu-item>
+					</md-menu-content>
+					</md-menu>
+				</nav>
+			</div>
+			{% if page.menu is iterable %}
+				<!-- Bottom row, not visible on scroll -->
+				<div class="mdl-layout__header-row" style="padding-left:0px;">
+					<!-- Navigation -->
+					<nav class="mdl-navigation">
+						{% if page.menu.back_url %}
+							<a class="mdl-navigation__link" href="{{ci_site_url(page.menu.back_url)}}"><i class="material-icons">keyboard_arrow_left</i> Go back</a>
+						{% endif %}
+					</nav>
+				</div>
+			{% endif %}
+		</header>
+		<div class="mdl-layout__drawer">
+			<span class="mdl-layout-title">{{system.fullname}}</span>
+			{% include '@VIEWPATH/_theme/layouts/_components/system_menu.twig' ignore missing with system.menu only %}
+		</div>
+		<main class="mdl-layout__content">
+		<div class="page-content">
+			{% for view, params in views %}
+				{% include view with params %}
+			{% endfor %}
+		</div>
+		</main>
+	</div>
+{% endblock %}

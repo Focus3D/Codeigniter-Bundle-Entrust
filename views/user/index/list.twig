@@ -1,0 +1,31 @@
+<div layout="column" layout-padding>
+	<div ng-controller="userController">
+		<table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp" style="width:100%;">
+			<thead>
+				<tr>
+					<th class="mdl-data-table__cell--non-numeric">User</th>
+					<th class="mdl-data-table__cell--non-numeric">Email</th>
+					<th class="mdl-data-table__cell--non-numeric">Roles</th>
+					<th class="mdl-data-table__cell--non-numeric">State</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for user in users %}
+					<tr>
+						<td class="mdl-data-table__cell--non-numeric">{{user.firstname}} {{user.lastname}}</td>
+						<td class="mdl-data-table__cell--non-numeric">{{user.email}}</td>
+						<td class="mdl-data-table__cell--non-numeric">{{user.roles|join(' | ')}}</td>
+						<td class="mdl-data-table__cell--non-numeric"><a href="#" id="user-{{user.id}}-state" ng-click="showConfirm($event, {{user|json_encode()}}, {{csrf|json_encode()}})">{{ (user.deleted)? 'disabled': 'active' }}</a></td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+	<div>
+		<a href="{{ci_site_url('entrust/user/create')}}">
+			<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">
+			Create user
+			</button>
+		</a>
+	</div>
+</div>

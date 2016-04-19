@@ -1,0 +1,19 @@
+{
+    "name": "dsv/codeigniter-bundle-entrust",
+    "type": "codeigniter-bundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "David Sosa Valdes",
+            "email": "david.sosa.valdes@gmail.com"
+        }
+    ],
+    "require": {
+        "dsv/bundle-installer": "^1.0",
+        "dsv/cerberus": "^3.0",
+        "dsv/attire": "^2.3"
+    },
+    "extra": {
+        "installer-name": "EntrustBundle"
+    }
+}

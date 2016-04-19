@@ -1,0 +1,19 @@
+<nav class="mdl-navigation">
+	{% for tag, menus in system.menu %}
+		<p class="mdl-navigation__link" style="
+			padding-left: 30px;
+			padding-bottom: 5px;
+			padding-top: 5px;
+			font-weight: bold;
+			letter-spacing: -1.0px;
+			pointer-events: none;
+		">{{tag|upper}}</p>
+		{% if menus is iterable %}
+			{% for item in menus %}
+				<a class="mdl-navigation__link" href="{{ci_site_url(item.url)}}">
+					<i class="material-icons">{{item.icon}}</i> {{item.label}}
+				</a>
+			{% endfor %}
+		{% endif %}
+	{% endfor %}
+</nav>
