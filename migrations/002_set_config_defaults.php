@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Migration_Set_config_plugin_options extends CI_Migration {
+class Migration_Set_config_defaults extends CI_Migration {
 
 	public function __construct()
 	{
@@ -12,7 +12,6 @@ class Migration_Set_config_plugin_options extends CI_Migration {
 	public function up() 
 	{
 		$object = array(
-			'plugin' => 'entrust',
 			'name'   => 'system_menu',
 			'value'  => json_encode(array(
 				'dashboard' => array(
@@ -27,13 +26,12 @@ class Migration_Set_config_plugin_options extends CI_Migration {
 				)
 			),TRUE)
 		);
-		$this->db->insert('ci_bdl_entrust_config_plugins', $object);	
+		$this->db->insert('ci_bdl_entrust_config', $object);	
 	}
 
 	public function down() 
 	{
-		$this->db->where('plugin', 'entrust');
-		$this->db->delete('ci_bdl_entrust_config_plugins');
+		$this->db->delete('ci_bdl_entrust_config');
 	}
 
 }
