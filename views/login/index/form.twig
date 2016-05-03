@@ -1,4 +1,4 @@
-{{ ci_form_open('entrust/login')|raw }}
+{{ ci_form_open('entrust/login/validate')|raw }}
 <md-card>
 <md-card-title>
 <md-card-title-text style="text-align:center;">
@@ -7,7 +7,7 @@
 </md-card-title-text>
 </md-card-title>
 <md-card-content style="padding-bottom:0px;">
-{% for item in messages.errors if item is not empty %}
+{% for item in errors %}
 	<div style="margin-top:5px">
 		<span style="
 			color: #a94442;
@@ -19,19 +19,24 @@
 			box-sizing: border-box;
 			display:block;
 			font-size:small;
-		">{{item}}</span>
+			">{{item}}
+		</span>
 	</div>
 {% endfor %}
 <div layout-gt-sm="column" style="margin-top:15px;">
 	<md-input-container class="md-block">
 	<label>{{ lang.placeholder_username_line }}</label>
-	<input type="text" name="username" id="username" value="{{ ci_set_value('username') }}" autofocus>
-	<div class="hint">{{ ci_form_error('username')|raw }}</div>
+	<input type="text" name="username" id="username" value="{{ form_post.username }}" autofocus>
+	<div class="hint">
+		{{ form_errors.username|raw }}
+	</div>
 	</md-input-container>
 	<md-input-container class="md-block">
 	<label>{{ lang.placeholder_password_line }}</label>
 	<input type="password" name="password">
-	<div class="hint">{{ ci_form_error('password')|raw }}</div>
+	<div class="hint">
+		{{ form_errors.password|raw }}
+	</div>
 	</md-input-container>
 </div>
 </md-card-content>

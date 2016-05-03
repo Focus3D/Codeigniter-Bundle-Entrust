@@ -1,3 +1,12 @@
+{% for _key, _message in notifications if _message != null %}
+	<md-toolbar class="md-accent">
+	<div class="md-toolbar-tools">
+		<h3>
+		<span>{{ _message }}</span>
+		</h3>
+	</div>
+	</md-toolbar>
+{% endfor %}
 <div layout="column" layout-padding>
 	<div ng-controller="userController">
 		<table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp" style="width:100%;">
