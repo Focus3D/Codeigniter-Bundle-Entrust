@@ -1,36 +1,40 @@
 /**
  *= require entrust_app
  */
+
 app.controller('userController', function($scope, $http, $mdDialog, $mdMedia, $mdToast) {
 
     $scope.customFullscreen = $mdMedia('xs') || $mdMedia('sm');
 
     $scope.showConfirm = function(ev, user, csrf) {
+        var element = document.getElementById('user-' + user.id + '-state');
+        var text    = element.innerText || element.textContent;
+        var state   = (text == 'disabled')? 'active' : 'disable';
+
         // Appending dialog to document.body to cover sidenav in docs app
         var confirm = $mdDialog.confirm()
-            .title('Update User')
-            .textContent('Are you sure you want to enable/disable the user?')
+            .title('Update: ' + user.firstname + ' ' + user.lastname )
+            .textContent('Are you sure you want to ' + state + ' the user?')
             .ariaLabel('deactivate user')
             .targetEvent(ev)
-            .ok('Confirm')
+            .ok(state)
             .cancel('Cancel');
 
         $mdDialog.show(confirm).then(function() {
-            $scope._updateUser(user,csrf);
+            $scope._updateUser(user.id, (text != 'disabled'), csrf);
         }, function() {
             console.log('Update User - Cancel');
         });
     };
 
-    $scope._updateUser = function(user, csrf) {
-        var token = {};
+    $scope._updateUser = function(user_id, state, csrf) {
+        var token = {
+            'id' : user_id,
+            'deleted' : state
+        };
         token[csrf.name] = csrf.hash;
-        token['id'] = user.id;
 
-        var element = document.getElementById('user-' + user.id + '-state');
-        var text = element.innerText || element.textContent;
-
-        token['deleted'] = (text != 'disabled');
+        var element = document.getElementById('user-' + user_id + '-state');
 
         $http({
             method: 'POST',
@@ -42,14 +46,14 @@ app.controller('userController', function($scope, $http, $mdDialog, $mdMedia, $m
 
             $mdToast.show(
                 $mdToast.simple()
-                .textContent('Updated')
+                .textContent('User Updated!')
                 .action('UNDO')
                 .highlightAction(true)
                 .position('bottom right')
                 .hideDelay(3000)
             ).then(function(response) {
                 if (response == 'ok') {
-                    $scope._updateUser(user, csrf);
+                    $scope._updateUser(user_id, !state, csrf);
                 }
             });
         }, function(data) {
