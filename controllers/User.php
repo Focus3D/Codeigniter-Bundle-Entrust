@@ -10,6 +10,9 @@ class User extends Entrust_Controller
 			'csrf'  => [
 		    	'name' => $this->security->get_csrf_token_name(),
 		    	'hash' => $this->security->get_csrf_hash()
+			],
+			'notifications' => [
+				'create' => $this->session->flashdata('create_message')
 			]
 		];
 
@@ -37,6 +40,12 @@ class User extends Entrust_Controller
 	{
 		$this->load->helper('form');
 
+		$data = [
+			'form_errors' => $this->session->flashdata('flash_form_errors'),
+			'form_post'   => $this->session->flashdata('flash_post'),
+			'errors' 	  => $this->session->flashdata('flash_errors')
+		];
+
 		$this->attire
 			->add_global([
 				'page' => [
@@ -48,7 +57,7 @@ class User extends Entrust_Controller
 				 ]
 			])
 			->set_manifest('entrust_user_create_app')
-			->add_view('user/create/form')
+			->add_view('user/create/form', $data)
 			->render();	
 	}
 
@@ -57,71 +66,68 @@ class User extends Entrust_Controller
 	 * POST /{{ COLLECTION }}/store
 	 */
 
-	/**
- 	* @todo recycle some code here (upgrade)
- 	*/	
 	public function store()
 	{
-		$this->load->library('form_validation');
-		
-		$this->form_validation->set_error_delimiters('', '');
-		$this->form_validation->set_rules('firstname', 'Firstname', 'required');
-		$this->form_validation->set_rules('lastname', 'Lastname', 'required');
-		/**
-		 * @todo is_unique[table.field] validation
-		 */
-		$this->form_validation->set_rules('email', 'Email', 'required');
-		$this->form_validation->set_rules('password', 'Password', 'required');
-		$this->form_validation->set_rules('c_password', 'Password Confirmation', 'required|matches[password]');
-		$this->form_validation->set_rules('h_roles', 'Roles', 'required');	
-
-		if ($this->form_validation->run()) 
+		if ($this->input->method(TRUE) == 'POST') 
 		{
-			$new_user = [
-				'firstname' => $this->input->post('firstname'),
-				'lastname'  => $this->input->post('lastname'),
-				'email'     => $this->input->post('email'),
-				'password'  => $this->input->post('password')
-			];	
+			$this->load->library('form_validation');
 
-			if ($this->cerberus->user->create($new_user)) 
+			$this->form_validation->set_rules('firstname', 'Firstname', 'required');
+			$this->form_validation->set_rules('lastname', 'Lastname', 'required');
+			/**
+			 * @todo is_unique[table.field] validation
+			 */
+			$this->form_validation->set_rules('email', 'Email', 'required');
+			$this->form_validation->set_rules('password', 'Password', 'required');
+			$this->form_validation->set_rules('c_password', 'Password Confirmation', 'required|matches[password]');
+			$this->form_validation->set_rules('h_roles', 'Roles', 'required');
+	
+			if ($this->form_validation->run()) 
 			{
-				$data       = array();				
+				$_user = [
+					'firstname' => $this->input->post('firstname'),
+					'lastname'  => $this->input->post('lastname'),
+					'email'     => $this->input->post('email'),
+					'password'  => $this->input->post('password'),
+				];
+
+				$this->cerberus->user->create($_user);
+
 				list($user) = $this->cerberus->user->get_by('email', $this->input->post('email'));
 				$roles      = json_decode($this->input->post('h_roles'));
 
-				if ($this->cerberus->role->assign($user['id'], $roles)) 
+				$this->cerberus->role->assign($user['id'], $roles);
+
+				if (! empty($this->cerberus->errors())) 
 				{
-					$this->session->set_flashdata('store_success', 'User created!');
-					
-					redirect('entrust/users');
+					$this->session->set_flashdata('flash_errors', $this->cerberus->errors());
+					$this->session->set_flashdata('flash_post', $_POST);				
 				}
 				else
 				{
-					$data['error'] = 'Could not assign the user roles';
-				}			
+					$this->session->set_flashdata('create_message', 'User successfully created!');
+
+					return redirect('entrust/user');	
+				}
 			}
 			else
 			{
-				$data['error'] = 'Could not create the user.';
+				$this->load->helper('array');
+
+				$data = array();
+
+				$validation_fields = ['firstname','lastname','email','h_roles','password','c_password'];
+
+				foreach (elements($validation_fields, $_POST) as $key => $value) 
+				{
+					$data[$key] = $this->form_validation->error($key);
+				}
+
+				$this->session->set_flashdata('flash_form_errors', $data);
+				$this->session->set_flashdata('flash_post', $_POST);
 			}
 		}
-
-		$this->load->helper('form');
-
-		$this->attire
-			->add_global([
-				'page' => [
-				 	'title' => 'Users',
-				 	'subtitle' => 'Create',
-				 	'menu' => [
-				 		'back_url' => 'entrust/users'
-				 	]
-				]
-			])
-			->set_manifest('entrust_user_create_app')
-			->add_view('user/create/error', $data)
-			->render();			
+		return redirect('entrust/user/create');
 	}
 
 	/**
