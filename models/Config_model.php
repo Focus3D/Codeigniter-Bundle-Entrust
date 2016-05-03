@@ -11,28 +11,12 @@ class Config_model extends CI_Model
 
 	public function get($name, $plugin_search = FALSE)
 	{
-		$config = array();
 		$this->db->select('value');
 		$this->db->from('ci_bdl_entrust_config');
 		$this->db->where('name', $name);
+		$this->db->limit(1);
 		$query = $this->db->get();
-		
-		foreach ($query->result_array() as $key => $row) 
-		{
-			$config = array_merge($config, json_decode($row['value'], TRUE));
-		}
-		
-		$this->db->select('plugin, value');
-		$this->db->from('ci_bdl_entrust_config_plugins');
-		$this->db->where('name', $name);
-		$query = $this->db->get();
-		
-		foreach ($query->result_array() as $key => $row) 
-		{
-			$config[$row['plugin']] = json_decode($row['value'], TRUE);
-		}		
-		
-		return $config;
+		return $query->row_array()['value'];
 	}
 }
 

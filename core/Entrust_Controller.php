@@ -24,11 +24,11 @@ class Entrust_Controller extends Bundle_Controller
 			->set_manifest('entrust_app')
 			->add_global([
 				'system' => [
-					'menu' => $this->config_model->get('system_menu'),
+					'menu' => json_decode($this->config_model->get('system_menu'), TRUE),
 					'user' => $this->cerberus->check()
 				]
 			]);
-	}	
+	}
 }
 
 /* End of file Entrust_Controller.php */
