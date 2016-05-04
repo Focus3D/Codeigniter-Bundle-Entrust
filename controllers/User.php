@@ -129,25 +129,6 @@ class User extends Entrust_Controller
 		}
 		return redirect('entrust/user/create');
 	}
-
-	/**
-	 * Update user
-	 * POST /{{ COLLECTION }}/store
-	 */
-	public function update()
-	{
-		$this->load->helper('form');
-
-		$this->attire
-			->add_global([
-				'page' => [
-				 	'title' => 'Users',
-				 	'subtitle' => 'Update',
-				 ]
-			])
-			->add_view('user/update/form')
-			->render();			
-	}
 }
 
 /* End of file Users.php */
