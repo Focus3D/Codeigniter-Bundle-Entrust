@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+					<title></title>
+							<link rel="stylesheet" href="http://codeigniter.dev/public/assets/file_a1a8ad282d275207b48e54495ef31d35_entrust_dashboard_app.css">
+			<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+			</head>
+	<body>
+			<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header" ng-app="backendApp" ng-cloak>
+		<header class="mdl-layout__header">
+			<div class="mdl-layout__header-row">
+				<!-- Title -->
+				<span class="mdl-layout-title">Dashboard <small style="font-weight: 300; font-style: initial; font-size: small;">Backend</small></span>
+				<!-- Add spacer, to align navigation to the right -->
+				<div class="mdl-layout-spacer"></div>
+				<!-- Navigation. We hide it in small screens. -->
+				<nav class="mdl-navigation mdl-layout--large-screen-only">
+					<md-menu style="padding-right:0px;" class="mdl-navigation__link" md-position-mode="target-right target" md-offset="0 40">
+					<md-button aria-label="Open demo menu" ng-click="$mdOpenMenu($event)">
+					Admin 
+					<md-icon style="color:white;" md-menu-origin class="material-icons">expand_more</md-icon>
+					</md-button>
+					<md-menu-content width="3" style="padding-top:0px;padding-bottom:0px;">
+					<md-menu-item>
+					<md-button ng-href="http://codeigniter.dev/index.php/entrust/logout" style="max-height:35px;">
+					<div><md-icon class="material-icons">exit_to_app</md-icon> Log out</div>
+					</md-button>
+					</md-menu-item>
+					</md-menu-content>
+					</md-menu>
+				</nav>
+			</div>
+					</header>
+		<div class="mdl-layout__drawer">
+			<span class="mdl-layout-title">EntrustBundle</span>
+			<nav class="mdl-navigation">
+			<a class="mdl-navigation__link" href="http://codeigniter.dev/index.php/entrust">
+			<i class="material-icons">dashboard</i> Dashboard
+		</a>
+			<a class="mdl-navigation__link" href="http://codeigniter.dev/index.php/entrust/users">
+			<i class="material-icons">supervisor_account</i> Users
+		</a>
+	</nav>		</div>
+		<main class="mdl-layout__content">
+		<div class="page-content">
+							<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+  <div class="mdl-card mdl-cell mdl-cell--12-col">
+    <div class="mdl-card__supporting-text">
+      <h4>Welcome to EntrustBundle!</h4>
+      <p>This is an example of what a <b>CI-Bundle</b> can do.</p>
+    </div>
+  </div>
+</section>					</div>
+		</main>
+	</div>
+		<div id="footer">
+					</div>
+					<script src="http://codeigniter.dev/public/assets/file_0b2b90ce2fdd3de91ae49e4a239b4e49_entrust_app.js"></script>
+			</body>
+</html>
